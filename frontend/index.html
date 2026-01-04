@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Visa Benefits Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-container">
+                <div class="visa-logo">VISA</div>
+                <h1>AI Benefits Assistant</h1>
+            </div>
+            <p class="tagline">Discover your card benefits with AI-powered insights</p>
+        </header>
+
+        <!-- Disclaimer Banner -->
+        <div class="disclaimer-banner">
+            <div class="disclaimer-icon">⚠️</div>
+            <div class="disclaimer-text">
+                <strong>Demo Prototype:</strong> This is for demonstration purposes only. 
+                Actual benefits may vary. Please check with your bank for accurate information.
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Step 1: Card Input -->
+            <section id="card-input-section" class="section active">
+                <div class="section-header">
+                    <h2>Enter Your Visa Card Number</h2>
+                    <p>Your card number will be masked for security</p>
+                </div>
+
+                <div class="card-input-container">
+                    <div class="card-visual">
+                        <div class="card-chip"></div>
+                        <div class="card-number-display" id="card-display">****-****-****-****</div>
+                        <div class="card-brand">VISA</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="card-number">Card Number</label>
+                        <input 
+                            type="text" 
+                            id="card-number" 
+                            placeholder="Enter 16-digit card number"
+                            maxlength="19"
+                            autocomplete="cc-number"
+                        >
+                        <div class="input-help">Enter any 16-digit number starting with 4 for demo</div>
+                    </div>
+                </div>
+
+                <!-- User Context Form -->
+                <div class="user-context-form">
+                    <h3>Tell us about yourself for personalized recommendations</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Are you a student?</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="student-status" value="yes" checked>
+                                    <span class="radio-custom"></span>
+                                    Yes
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="student-status" value="no">
+                                    <span class="radio-custom"></span>
+                                    No
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city-select">Your City</label>
+                            <select id="city-select">
+                                <option value="Chennai" selected>Chennai</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Pune">Pune</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Age Group</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="age-group" value="18-25" checked>
+                                <span class="radio-custom"></span>
+                                18-25
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="age-group" value="26-35">
+                                <span class="radio-custom"></span>
+                                26-35
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="age-group" value="36+">
+                                <span class="radio-custom"></span>
+                                36+
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="analyze-btn" class="primary-btn" disabled>
+                    <span class="btn-text">Analyze My Benefits</span>
+                    <span class="btn-loader" style="display: none;">
+                        <div class="spinner"></div>
+                        Analyzing...
+                    </span>
+                </button>
+
+                <!-- Results Section -->
+                <div id="results-section" class="results-section" style="margin: 40px 0; padding: 30px; border: 3px solid #1a1f71; border-radius: 15px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); box-shadow: 0 8px 25px rgba(26, 31, 113, 0.15);">
+                    
+                    <!-- Prototype Demo Label -->
+                    <div class="prototype-demo-label" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border: 2px solid #ffc107; border-radius: 10px; padding: 15px; margin-bottom: 25px; text-align: center; font-size: 16px; box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);">
+                        <strong>📋 Prototype Demo – Sample Data Only</strong>
+                    </div>
+
+                    <!-- Benefits & Offers Section -->
+                    <div class="benefits-offers-section" style="margin-bottom: 35px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <h3 style="color: #1a1f71; margin-bottom: 20px; border-bottom: 3px solid #1a1f71; padding-bottom: 8px; font-size: 20px;">💳 Benefits & Offers</h3>
+                        <p class="card-info" style="margin-bottom: 20px; color: #666; font-size: 16px;">Card ending in <span id="masked-card">1234</span></p>
+                        <div id="all-benefits" class="benefits-grid" style="display: grid; gap: 20px;">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Best Benefit for You Section -->
+                    <div class="best-benefit-section" style="margin-bottom: 35px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <h3 style="color: #1a1f71; margin-bottom: 20px; border-bottom: 3px solid #1a1f71; padding-bottom: 8px; font-size: 20px;">✨ Best Benefit for You</h3>
+                        <div id="recommended-benefit" class="benefit-card recommended" style="background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%); border: 3px solid #ffd700; border-radius: 15px; padding: 25px; box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Terms & Conditions Section -->
+                    <div class="terms-conditions-section" style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <h3 style="color: #1a1f71; margin-bottom: 20px; border-bottom: 3px solid #1a1f71; padding-bottom: 8px; font-size: 20px;">📋 Terms & Conditions</h3>
+                        <div id="terms-content" class="terms-content" style="background: #f8f9fa; border-radius: 10px; padding: 25px; border: 2px solid #e1e5e9;">
+                            <p style="font-size: 16px; margin-bottom: 15px;"><strong>⚠️ Important Disclaimer:</strong> This is a prototype demonstration with mock data only.</p>
+                            <ul style="margin: 20px 0; padding-left: 25px; line-height: 1.8; font-size: 15px;">
+                                <li>All benefits shown are sample data for demonstration purposes</li>
+                                <li>Actual Visa card benefits may vary by bank and card type</li>
+                                <li>Please consult your bank for accurate benefit information</li>
+                                <li>No real card data is processed or stored</li>
+                                <li>Cashback rates, limits, and terms are fictional</li>
+                                <li>This prototype does not represent any real Visa card product</li>
+                            </ul>
+                            <p style="font-style: italic; color: #666; margin-top: 20px; font-size: 15px; text-align: center; padding: 15px; background: white; border-radius: 8px;"><em>For real Visa card benefits, contact your issuing bank or visit visa.co.in</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Results -->
+            <section id="results-section" class="section">
+                <div class="section-header">
+                    <h2>Your Visa Card Benefits</h2>
+                    <p class="card-info">Card ending in <span id="masked-card">****</span></p>
+                </div>
+
+                <!-- AI Recommended Benefit -->
+                <div class="recommended-benefit-container">
+                    <div class="recommendation-header">
+                        <div class="ai-badge">✨ AI Recommended for You</div>
+                    </div>
+                    <div id="recommended-benefit" class="benefit-card recommended">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- All Benefits -->
+                <div class="all-benefits-container">
+                    <h3>All Your Benefits</h3>
+                    <div id="all-benefits" class="benefits-grid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="back-btn" class="secondary-btn">← Try Another Card</button>
+                    <button id="learn-more-btn" class="primary-btn">Learn More About Visa</button>
+                </div>
+            </section>
+
+            <!-- Benefit Detail Modal -->
+            <div id="benefit-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="modal-title">Benefit Details</h3>
+                        <button id="close-modal" class="close-btn">×</button>
+                    </div>
+                    <div id="modal-body" class="modal-body">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p class="footer-disclaimer">
+                    <strong>Important:</strong> This is a prototype demonstration. 
+                    Your actual card benefits may differ. Always verify with your bank.
+                </p>
+                <div class="footer-links">
+                    <a href="#" onclick="showPrivacyInfo()">Privacy Policy</a>
+                    <a href="#" onclick="showTermsInfo()">Terms of Use</a>
+                    <a href="#" onclick="showContactInfo()">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>AI is analyzing your benefits...</h3>
+            <p>Finding the best recommendations for you</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
